@@ -3,7 +3,9 @@ package com.marwane.secureapp.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +23,11 @@ public class User {
 	private Long id;
 	private String username;
 	private String password;
-	@ManyToMany
+    private String lastName;
+    private String firstName;
+    private String pass;
+    private String mail;
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "user_budget", joinColumns = @JoinColumn(name = "id"),
 	inverseJoinColumns = @JoinColumn(name = "idBudget"))
 	private List<Budget> budgets;
@@ -33,6 +39,16 @@ public class User {
 		this.budgets = new ArrayList<Budget>();
 	}
 	
+	public User(String username, String password, String lastName, String firstName, String pass, String mail,
+			List<Budget> budgets) {
+		this.username = username;
+		this.password = password;
+		this.lastName = lastName;
+		this.firstName = firstName;
+		this.pass = pass;
+		this.mail = mail;
+		this.budgets = budgets;
+	}
 	/*public Budget createBudget( String budgetName, Double initialValue) {
 		Budget budget=new Budget( budgetName,initialValue,null, this);
 		return budget;
@@ -72,6 +88,30 @@ public class User {
 	
 	public void addBudgets(Budget budget) {
 		this.budgets.add(budget);
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getPass() {
+		return pass;
+	}
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+	public String getMail() {
+		return mail;
+	}
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
 
 }

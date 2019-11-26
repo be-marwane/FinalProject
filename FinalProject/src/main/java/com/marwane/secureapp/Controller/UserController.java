@@ -43,6 +43,14 @@ public class UserController {
         
         return result;
     }
+    
+  //Methode GET
+    @RequestMapping("/all")
+    @ResponseBody
+    public List<User> getUser(){
+        List<User> result = userRepository.findAll();
+        return result;
+    }
     //METHODE POST
     @RequestMapping(value="/create",method = RequestMethod.POST)
     @ResponseBody
@@ -52,6 +60,15 @@ public class UserController {
             User result = new User(username,password);
             userRepository.save(result);
             return result;
+    }
+    
+  //METHODE POST
+    @RequestMapping(value="/createbody",method = RequestMethod.POST)
+    @ResponseBody
+    public User postUser(@RequestBody User u){
+
+            userRepository.save(u);
+            return u;
     }
     
     //METHODE POST
